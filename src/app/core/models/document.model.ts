@@ -6,7 +6,6 @@ export interface SelectedDocument {
   readonly extension: string;
   /** The format hint to pass to AnyDoc at conversion time. */
   readonly format: Format;
-  readonly sizeBytes: number;
   readonly sizeLabel: string;
 }
 

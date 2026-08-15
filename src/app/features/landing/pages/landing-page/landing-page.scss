@@ -253,7 +253,13 @@ h2 {
   gap: 32px;
   margin-top: 32px;
 }
-.how {
+/* .feature-row keeps the 56px vertical padding from the shared rule above;
+   these five sections all take 64px instead. */
+.how,
+.formats,
+.transform,
+.extension,
+.opensource {
   padding-top: 64px;
   padding-bottom: 64px;
 }
@@ -263,7 +269,8 @@ h2 {
   margin-top: 44px;
   border-top: 2px solid var(--color-divider);
 }
-.how-step {
+.how-step,
+.opensource-grid > div {
   padding: 24px;
   border-left: 2px solid var(--color-divider);
   &:first-child {
@@ -285,10 +292,6 @@ h2 {
 }
 
 /* — formats — */
-.formats {
-  padding-top: 64px;
-  padding-bottom: 64px;
-}
 .formats-grid {
   grid-template-columns: repeat(auto-fit, minmax(max(25%, 150px), 1fr));
   margin-top: 40px;
@@ -322,10 +325,6 @@ h2 {
 }
 
 /* — transform — */
-.transform {
-  padding-top: 64px;
-  padding-bottom: 64px;
-}
 .transform-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -379,10 +378,6 @@ h2 {
 }
 
 /* — extension — */
-.extension {
-  padding-top: 64px;
-  padding-bottom: 64px;
-}
 .extension-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -459,10 +454,6 @@ h2 {
 }
 
 /* — open source — */
-.opensource {
-  padding-top: 64px;
-  padding-bottom: 64px;
-}
 .opensource-copy {
   font-size: 17px;
   line-height: 28px;
@@ -473,14 +464,6 @@ h2 {
 .opensource-grid {
   margin-top: 44px;
   border-top: 2px solid var(--color-divider);
-}
-.opensource-grid > div {
-  padding: 24px;
-  border-left: 2px solid var(--color-divider);
-  &:first-child {
-    padding-left: 0;
-    border-left: 0;
-  }
 }
 .opensource-actions {
   display: flex;

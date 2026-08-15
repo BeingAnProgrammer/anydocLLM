@@ -11,7 +11,6 @@ function fakeDocument(format: Format, name: string): SelectedDocument {
     name,
     extension: name.split('.').pop() ?? '',
     format,
-    sizeBytes: 17,
     sizeLabel: '17 B',
   };
 }

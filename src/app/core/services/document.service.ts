@@ -44,7 +44,6 @@ export class DocumentService {
         name: file.name,
         extension,
         format: info.format,
-        sizeBytes: file.size,
         sizeLabel: formatFileSize(file.size),
       },
     };
