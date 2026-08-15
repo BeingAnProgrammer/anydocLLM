@@ -35,6 +35,10 @@
   font-weight: 800;
   font-size: 18px;
   line-height: 26px;
+  /* Was a <p> — cancels the global h1-h6 rule's letter-spacing so promoting
+     it to <h2> for heading semantics doesn't change its appearance. */
+  letter-spacing: normal;
+  margin: 0;
   overflow-wrap: anywhere;
 }
 

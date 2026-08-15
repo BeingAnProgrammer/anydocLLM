@@ -36,6 +36,12 @@
   font-size: 14px;
   font-weight: 600;
   overflow-wrap: anywhere;
+  /* Was a <p> — cancels the global h1-h6 rule's line-height/letter-spacing
+     so promoting it to <h2> for heading semantics doesn't change its
+     appearance (font-weight above already overrides the same rule's 800). */
+  line-height: inherit;
+  letter-spacing: normal;
+  margin: 0;
 }
 
 .arrow-name {

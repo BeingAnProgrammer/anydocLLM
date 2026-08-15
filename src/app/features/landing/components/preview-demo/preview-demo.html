@@ -1,0 +1,130 @@
+<section id="product" class="preview-section">
+  <div class="preview">
+    <div class="preview-bar">
+      <span class="dot"></span>
+      <span class="preview-label">AnyDoc LLM — converter <code>.md</code></span>
+      <span class="preview-status">{{ stageLabel() }}</span>
+    </div>
+
+    @if (stage() === 'idle') {
+      <button type="button" class="preview-idle" (click)="restartDemo()">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <path d="M14 2v6h6"></path>
+          <path d="M12 18v-6"></path>
+          <path d="m9 15 3-3 3 3"></path>
+        </svg>
+        <p class="preview-idle-title">Drop your document here</p>
+        <p class="preview-idle-hint text-muted">or click to browse files — max 25 MB</p>
+        <div class="preview-idle-tags">
+          <span class="tag tag-outline">PDF</span>
+          <span class="tag tag-outline">DOCX</span>
+          <span class="tag tag-outline">XLSX</span>
+          <span class="tag tag-outline">PPTX</span>
+          <span class="tag tag-outline">CSV</span>
+          <span class="tag tag-outline">DOC</span>
+        </div>
+      </button>
+    }
+
+    @if (stage() === 'converting') {
+      <div class="preview-converting" aria-hidden="true">
+        <div class="preview-converting-header">
+          <p class="preview-converting-name">{{ demoFileName }}</p>
+          <p class="preview-converting-label">Converting…</p>
+        </div>
+        <div class="preview-progress-track">
+          <div class="preview-progress-fill" [style.width]="progressPercent()"></div>
+        </div>
+        <p class="preview-converting-status">{{ statusText() }}</p>
+      </div>
+    }
+
+    @if (stage() === 'done') {
+      <div>
+        <div class="preview-toolbar">
+          <p class="preview-filename">
+            {{ demoFileName }} <span class="preview-arrow">→ report.md</span>
+          </p>
+          <div class="preview-tabs">
+            <button type="button" class="preview-tab" [class.is-active]="view() === 'split'" (click)="setView('split')">
+              Split
+            </button>
+            <button
+              type="button"
+              class="preview-tab"
+              [class.is-active]="view() === 'markdown'"
+              (click)="setView('markdown')"
+            >
+              Markdown
+            </button>
+            <button
+              type="button"
+              class="preview-tab"
+              [class.is-active]="view() === 'preview'"
+              (click)="setView('preview')"
+            >
+              Preview
+            </button>
+          </div>
+          <div class="preview-tools">
+            <button type="button" class="btn btn-ghost" (click)="copyMarkdown()">{{ copyLabel() }}</button>
+            <button type="button" class="btn btn-ghost" (click)="downloadMarkdown()">Download .md</button>
+            <button type="button" class="btn btn-ghost" (click)="reset()">Reset</button>
+          </div>
+        </div>
+        <div class="preview-grid">
+          @if (showMarkdownPane()) {
+            <div class="preview-pane" [class.is-only]="!showPreviewPane()">
+              <div class="pane-label">Markdown</div>
+              <pre class="pane-md"
+                >@for (line of visibleLines(); track $index) {<div class="md-line md-{{ line.kind }}">{{
+                  line.text
+                }}</div>}<span class="md-cursor"></span></pre>
+            </div>
+          }
+          @if (showPreviewPane()) {
+            <div class="preview-pane" [class.is-only]="!showMarkdownPane()">
+              <div class="pane-label">Preview</div>
+              <div class="pane-preview" [style.opacity]="previewOpacity()">
+              <h2>Annual Financial Report</h2>
+              <h3>Revenue</h3>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Month</th>
+                    <th style="text-align: right">Revenue</th>
+                    <th style="text-align: right">Growth</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>January</td>
+                    <td style="text-align: right">$120,000</td>
+                    <td style="text-align: right">8.2%</td>
+                  </tr>
+                  <tr>
+                    <td>February</td>
+                    <td style="text-align: right">$138,000</td>
+                    <td style="text-align: right">15.0%</td>
+                  </tr>
+                  <tr>
+                    <td>March</td>
+                    <td style="text-align: right">$151,000</td>
+                    <td style="text-align: right">9.4%</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3>Summary</h3>
+              <p>
+                Revenue increased consistently throughout the first quarter, led by enterprise renewals and a full
+                quarter of the new pricing tiers.
+              </p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>
