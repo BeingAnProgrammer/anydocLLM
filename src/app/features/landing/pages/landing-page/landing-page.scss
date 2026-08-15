@@ -15,7 +15,8 @@ a:hover {
 
 section,
 .nav-inner,
-.footer-inner {
+.footer-inner,
+.cta-inner {
   max-width: 1200px;
   margin: 0 auto;
   padding-inline: clamp(20px, 5vw, 72px);
@@ -25,6 +26,27 @@ h2 {
   font-size: clamp(28px, 3.6vw, 46px);
   line-height: 1.08;
   letter-spacing: -0.02em;
+}
+
+/* Shared divider-border declarations, factored out of the individual rules
+   below that each also set unrelated properties of their own. */
+.nav,
+.preview-bar,
+.pane-label,
+.mock-chrome,
+.mock-popup-header {
+  border-bottom: 2px solid var(--color-divider);
+}
+.preview,
+.transform-box,
+.extension-mock,
+.mock-popup {
+  border: 2px solid var(--color-divider);
+}
+.how-grid,
+.opensource-grid,
+.site-footer {
+  border-top: 2px solid var(--color-divider);
 }
 
 .eyebrow {
@@ -65,7 +87,6 @@ h2 {
   position: sticky;
   top: 0;
   z-index: 50;
-  border-bottom: 2px solid var(--color-divider);
   background: color-mix(in srgb, var(--color-bg) 88%, transparent);
   backdrop-filter: blur(10px);
 }
@@ -92,8 +113,9 @@ h2 {
 
 /* — hero — */
 .hero {
-  padding-top: clamp(48px, 7vw, 96px);
-  padding-bottom: 40px;
+  /* .hero is a <section>, so it already gets padding-inline from the
+     shared rule above — only the block (vertical) padding is set here. */
+  padding-block: clamp(48px, 7vw, 96px) 40px;
 }
 .hero-badges {
   display: flex;
@@ -149,7 +171,6 @@ h2 {
   padding-bottom: 64px;
 }
 .preview {
-  border: 2px solid var(--color-divider);
   background: var(--color-surface);
   box-shadow: var(--shadow-md);
 }
@@ -159,7 +180,6 @@ h2 {
   gap: 12px;
   padding: 0 16px;
   height: 44px;
-  border-bottom: 2px solid var(--color-divider);
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -188,7 +208,6 @@ h2 {
 }
 .pane-label {
   padding: 10px 16px;
-  border-bottom: 2px solid var(--color-divider);
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -235,13 +254,10 @@ h2 {
 }
 
 /* — feature row / how it works — */
-.feature-row,
-.how,
-.formats,
-.transform,
-.extension,
-.opensource {
-  padding: 56px clamp(20px, 5vw, 72px);
+/* All six are <section>s (padding-inline already comes from the shared
+   rule above), so only the block padding needs setting here. */
+.feature-row {
+  padding-block: 56px;
 }
 .feature-grid,
 .formats-grid,
@@ -253,21 +269,18 @@ h2 {
   gap: 32px;
   margin-top: 32px;
 }
-/* .feature-row keeps the 56px vertical padding from the shared rule above;
-   these five sections all take 64px instead. */
+/* .feature-row (above) takes 56px; these five take 64px instead. */
 .how,
 .formats,
 .transform,
 .extension,
 .opensource {
-  padding-top: 64px;
-  padding-bottom: 64px;
+  padding-block: 64px;
 }
 .how-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   margin-top: 44px;
-  border-top: 2px solid var(--color-divider);
 }
 .how-step,
 .opensource-grid > div {
@@ -333,7 +346,6 @@ h2 {
   margin-top: 44px;
 }
 .transform-box {
-  border: 2px solid var(--color-divider);
   padding: 24px;
 }
 .transform-box-result {
@@ -393,7 +405,6 @@ h2 {
   display: inline-block;
 }
 .extension-mock {
-  border: 2px solid var(--color-divider);
   background: var(--color-neutral-100);
   padding: 20px;
   box-shadow: var(--shadow-sm);
@@ -403,7 +414,6 @@ h2 {
   gap: 6px;
   align-items: center;
   padding-bottom: 14px;
-  border-bottom: 2px solid var(--color-divider);
 }
 .mock-dot {
   width: 10px;
@@ -424,7 +434,6 @@ h2 {
 }
 .mock-popup {
   width: 270px;
-  border: 2px solid var(--color-divider);
   background: var(--color-bg);
   box-shadow: var(--shadow-md);
 }
@@ -433,7 +442,6 @@ h2 {
   align-items: center;
   gap: 8px;
   padding: 10px 12px;
-  border-bottom: 2px solid var(--color-divider);
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 13px;
@@ -463,7 +471,6 @@ h2 {
 }
 .opensource-grid {
   margin-top: 44px;
-  border-top: 2px solid var(--color-divider);
 }
 .opensource-actions {
   display: flex;
@@ -478,9 +485,9 @@ h2 {
   color: var(--color-bg);
 }
 .cta-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 72px clamp(20px, 5vw, 72px);
+  /* max-width, margin, and padding-inline already come from the shared
+     rule at the top of this file — only the block padding differs. */
+  padding-block: 72px;
 }
 .cta h2 {
   font-size: clamp(32px, 4.2vw, 56px);
@@ -516,11 +523,8 @@ h2 {
 }
 
 /* — footer — */
-.site-footer {
-  border-top: 2px solid var(--color-divider);
-}
 .footer-inner {
-  padding: 40px clamp(20px, 5vw, 72px);
+  padding-block: 40px;
   display: flex;
   gap: 32px;
   flex-wrap: wrap;
