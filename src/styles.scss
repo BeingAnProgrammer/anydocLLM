@@ -7,18 +7,18 @@
   --color-muted: color-mix(in srgb, var(--color-text) 65%, transparent);
   --color-divider: color-mix(in srgb, #201e1d 40%, transparent);
 
-  // Warm orange accent — final, do not change hue.
-  --color-accent: #c75d1a;
-  --color-accent-hover: #a84d14;
-  --color-accent-100: #fff3eb;
-  --color-accent-200: #fde1c7;
-  --color-accent-300: #f7bd8a;
-  --color-accent-400: #ee8d43;
-  --color-accent-500: #c75d1a;
-  --color-accent-600: #a84d14;
-  --color-accent-700: #874112;
-  --color-accent-800: #66310d;
-  --color-accent-900: #432209;
+  // Light orange with a subtle red warmth.
+  --color-accent: #e36c3d;
+  --color-accent-hover: #c85a2f;
+  --color-accent-100: #fff3ee;
+  --color-accent-200: #fce0d4;
+  --color-accent-300: #f7b59d;
+  --color-accent-400: #ee8b66;
+  --color-accent-500: #e36c3d;
+  --color-accent-600: #c85a2f;
+  --color-accent-700: #a84827;
+  --color-accent-800: #863d20;
+  --color-accent-900: #602b1b;
 
   --color-neutral-100: #f8f4f4;
   --color-neutral-200: #eae7e7;
