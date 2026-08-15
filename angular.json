@@ -30,8 +30,8 @@
                 "input": "public"
               },
               {
-                "glob": "pdf.worker.min.mjs",
-                "input": "node_modules/pdfjs-dist/build",
+                "glob": "anydoc_wasm_bg.wasm",
+                "input": "node_modules/@firecrawl/anydoc-wasm",
                 "output": "."
               }
             ],

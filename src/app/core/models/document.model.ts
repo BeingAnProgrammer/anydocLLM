@@ -1,10 +1,11 @@
-import type { SupportedFormat } from './supported-file.model';
+import type { Format } from '@firecrawl/anydoc-wasm';
 
 export interface SelectedDocument {
   readonly file: File;
   readonly name: string;
   readonly extension: string;
-  readonly format: SupportedFormat;
+  /** The format hint to pass to AnyDoc at conversion time. */
+  readonly format: Format;
   readonly sizeBytes: number;
   readonly sizeLabel: string;
 }

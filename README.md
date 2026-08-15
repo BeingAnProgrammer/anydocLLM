@@ -1,59 +1,55 @@
-# AnydocLlm
+# AnyDoc LLM
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.21.
+A free, open-source, entirely client-side tool that converts documents into clean, LLM-ready Markdown. Upload a file, get Markdown, done — no account, no subscription, no server round-trip for your document.
+
+## Architecture
+
+```
+Browser
+  ↓
+Angular (standalone components, signals)
+  ↓
+ConversionService
+  ↓
+@firecrawl/anydoc-wasm  (AnyDoc, compiled to WebAssembly)
+  ↓
+Markdown
+  ↓
+Markdown editor / live preview
+  ↓
+Copy or download .md
+```
+
+Documents are converted **entirely inside the browser tab** using [AnyDoc](https://github.com/firecrawl/anydoc), an open-source Rust document-to-Markdown engine, compiled to WebAssembly via the official `@firecrawl/anydoc-wasm` package (MIT license). A file never leaves the browser: there is no backend, no custom API, and no call to Firecrawl's hosted API.
+
+The WASM engine is isolated behind `AnyDocWasmService` (`src/app/core/services/anydoc-wasm.service.ts`), which the rest of the app never talks to directly — everything goes through `ConversionService`. That keeps the UI decoupled from the specific parsing engine: swapping AnyDoc for something else later would mean changing one service, not the app.
+
+The AnyDoc WASM module (a few MB) is loaded lazily, only once the `/convert` route is opened — the landing page never pays that cost.
+
+## Supported formats
+
+PDF, DOCX, DOC, XLSX, XLS, PPTX, PPT, CSV, ODT, ODS, ODP, RTF, EPUB — the exact set AnyDoc declares support for (`src/app/core/models/supported-file.model.ts`, typed against the package's own `Format` union so a version bump that changes what's supported fails the build here rather than drifting silently).
 
 ## Development server
-
-To start a local development server, run:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
+Open `http://localhost:4200/`. Reloads automatically on source changes.
 
 ## Building
-
-To build the project run:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Production output goes to `dist/`.
 
 ## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Runs the [Vitest](https://vitest.dev/) suite.

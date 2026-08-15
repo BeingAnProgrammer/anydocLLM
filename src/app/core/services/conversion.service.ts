@@ -1,69 +1,71 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import type { SelectedDocument } from '../models/document.model';
 import type { ConversionError, ConversionResult } from '../models/conversion.model';
+import { AnyDocWasmService } from './anydoc-wasm.service';
 
-/** Reports which of the four pipeline stages just completed (0-based). */
+/** Reports which of the two pipeline stages just completed (0-based). */
 export type ConversionProgressCallback = (stageIndex: number) => void;
 
 /**
- * Hides the document → Markdown parser behind one call. The UI never knows
- * which library handled a given format, so the engine can change per-format
+ * Hides the document → Markdown engine (AnyDoc WASM) behind one call. The UI
+ * never imports @firecrawl/anydoc-wasm directly, so the engine could change
  * without touching any component.
  */
 @Injectable({ providedIn: 'root' })
 export class ConversionService {
+  private readonly anyDoc = inject(AnyDocWasmService);
+
   async convert(document: SelectedDocument, onProgress: ConversionProgressCallback): Promise<ConversionResult> {
     onProgress(0); // Reading document
-    const buffer = await document.file.arrayBuffer();
+    const bytes = new Uint8Array(await document.file.arrayBuffer());
 
     try {
-      onProgress(1); // Extracting content
-      const markdown = await this.runEngine(document, buffer, onProgress);
-      onProgress(3); // Generating Markdown
+      onProgress(1); // Converting with AnyDoc
+      const markdown = await this.anyDoc.convert(bytes, document.format);
       return { markdown };
-    } catch (e) {
-      console.error('AnyDoc LLM: conversion failed', e);
-      const error: ConversionError = {
-        reason: 'parser-failure',
-        message:
-          "The file couldn't be read — it may be password-protected, corrupted, or in an unexpected layout. Try again, or pick a different document.",
-      };
-      throw error;
+    } catch (thrown) {
+      console.error('AnyDoc LLM: conversion failed', thrown);
+      throw toConversionError(thrown);
     }
   }
+}
 
-  private async runEngine(
-    document: SelectedDocument,
-    buffer: ArrayBuffer,
-    onProgress: ConversionProgressCallback,
-  ): Promise<string> {
-    switch (document.format) {
-      case 'pdf': {
-        const engine = await import('../converters/pdf.converter');
-        const raw = await engine.extract(buffer);
-        onProgress(2); // Structuring document
-        return engine.structure(raw);
-      }
-      case 'docx': {
-        const engine = await import('../converters/docx.converter');
-        const html = await engine.extract(buffer);
-        onProgress(2);
-        return engine.structure(html);
-      }
-      case 'xlsx':
-      case 'xls':
-      case 'csv': {
-        const engine = await import('../converters/spreadsheet.converter');
-        const raw = await engine.extract(buffer);
-        onProgress(2);
-        return engine.structure(raw);
-      }
-      case 'pptx': {
-        const engine = await import('../converters/pptx.converter');
-        const raw = await engine.extract(buffer);
-        onProgress(2);
-        return engine.structure(raw);
-      }
-    }
+export function toConversionError(thrown: unknown): ConversionError {
+  const code = (thrown as { code?: string } | null)?.code;
+  switch (code) {
+    case 'encrypted':
+      return {
+        reason: 'parser-failure',
+        message: 'This document is password-protected. Remove the password and try again.',
+      };
+    case 'unsupported':
+      return {
+        reason: 'parser-failure',
+        message:
+          "This document's content couldn't be converted — for example, a scanned PDF with no extractable text.",
+      };
+    case 'malformed':
+      return {
+        reason: 'parser-failure',
+        message: 'This file appears to be corrupted or incomplete.',
+      };
+    case 'missingPart':
+      return {
+        reason: 'parser-failure',
+        message: "This file is missing a part it needs to convert — it may be an incomplete export.",
+      };
+    case 'resourceLimit':
+      return {
+        reason: 'parser-failure',
+        message: 'This document is too large or complex to convert safely.',
+      };
+    default:
+      // Anything without a recognized `code` is a WASM load/init failure, not
+      // a document problem — most likely the module failed to fetch or the
+      // browser can't run WebAssembly.
+      return {
+        reason: 'browser-unsupported',
+        message: "Your browser couldn't load the document engine. Try reloading the page, or use an up-to-date browser.",
+      };
   }
 }

@@ -5,11 +5,15 @@ export interface ConversionStage {
   readonly label: string;
 }
 
+/**
+ * AnyDoc converts in one call — it extracts, structures, and emits Markdown
+ * as a single atomic step, so there's no honest way to report progress
+ * through those as separate stages. Two real stages: reading the file into
+ * memory, then handing it to the engine.
+ */
 export const CONVERSION_STAGES: readonly ConversionStage[] = [
   { label: 'Reading document' },
-  { label: 'Extracting content' },
-  { label: 'Structuring document' },
-  { label: 'Generating Markdown' },
+  { label: 'Converting with AnyDoc' },
 ];
 
 export interface ConversionResult {

@@ -1,57 +1,34 @@
-export type SupportedFormat = 'pdf' | 'docx' | 'xlsx' | 'xls' | 'csv' | 'pptx';
+import type { Format } from '@firecrawl/anydoc-wasm';
 
 export interface SupportedFormatInfo {
-  readonly format: SupportedFormat;
+  /** The format hint AnyDoc expects — typed against the package's own Format union. */
+  readonly format: Format;
   readonly label: string;
   readonly extension: string;
-  readonly mimeTypes: readonly string[];
   readonly note: string;
 }
 
-/** The only formats the in-browser conversion engines actually handle. */
+/**
+ * The single source of truth for what this app accepts, kept in sync with
+ * AnyDoc's actual `Format` type (imported above) so a version bump that
+ * drops or renames a format fails the build here instead of drifting quietly.
+ * `xls` has no distinct AnyDoc format of its own — the package's own
+ * `formatFromExtension('xls')` resolves it to `'xlsx'`, mirrored here.
+ */
 export const SUPPORTED_FORMATS: readonly SupportedFormatInfo[] = [
-  {
-    format: 'pdf',
-    label: 'PDF',
-    extension: 'pdf',
-    mimeTypes: ['application/pdf'],
-    note: 'Reports, scans, papers',
-  },
-  {
-    format: 'docx',
-    label: 'DOCX',
-    extension: 'docx',
-    mimeTypes: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-    note: 'Word documents',
-  },
-  {
-    format: 'xlsx',
-    label: 'XLSX',
-    extension: 'xlsx',
-    mimeTypes: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-    note: 'Spreadsheets',
-  },
-  {
-    format: 'pptx',
-    label: 'PPTX',
-    extension: 'pptx',
-    mimeTypes: ['application/vnd.openxmlformats-officedocument.presentationml.presentation'],
-    note: 'Presentations',
-  },
-  {
-    format: 'csv',
-    label: 'CSV',
-    extension: 'csv',
-    mimeTypes: ['text/csv'],
-    note: 'Tabular data',
-  },
-  {
-    format: 'xls',
-    label: 'XLS',
-    extension: 'xls',
-    mimeTypes: ['application/vnd.ms-excel'],
-    note: 'Legacy spreadsheets',
-  },
+  { format: 'pdf', extension: 'pdf', label: 'PDF', note: 'Reports, scans, papers' },
+  { format: 'docx', extension: 'docx', label: 'DOCX', note: 'Word documents' },
+  { format: 'doc', extension: 'doc', label: 'DOC', note: 'Legacy Word documents' },
+  { format: 'xlsx', extension: 'xlsx', label: 'XLSX', note: 'Spreadsheets' },
+  { format: 'xlsx', extension: 'xls', label: 'XLS', note: 'Legacy spreadsheets' },
+  { format: 'pptx', extension: 'pptx', label: 'PPTX', note: 'Presentations' },
+  { format: 'ppt', extension: 'ppt', label: 'PPT', note: 'Legacy presentations' },
+  { format: 'csv', extension: 'csv', label: 'CSV', note: 'Tabular data' },
+  { format: 'odt', extension: 'odt', label: 'ODT', note: 'OpenDocument text' },
+  { format: 'ods', extension: 'ods', label: 'ODS', note: 'OpenDocument spreadsheets' },
+  { format: 'odp', extension: 'odp', label: 'ODP', note: 'OpenDocument presentations' },
+  { format: 'rtf', extension: 'rtf', label: 'RTF', note: 'Rich text documents' },
+  { format: 'epub', extension: 'epub', label: 'EPUB', note: 'E-books' },
 ];
 
 export const MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024;
