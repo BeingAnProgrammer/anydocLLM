@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { SUPPORTED_FORMATS } from '../../../../core/models/supported-file.model';
 
 type PreviewStage = 'idle' | 'converting' | 'done';
+type PreviewView = 'split' | 'markdown' | 'preview';
 type MarkdownLineKind = 'heading' | 'table-rule' | 'table' | 'body';
 
 interface MarkdownLine {
@@ -44,6 +45,7 @@ const TYPING_SPEED_MS = 55;
 const PROGRESS_TICK_MS = 70;
 const START_DELAY_MS = 1400;
 const FINISH_PAUSE_MS = 260;
+const COPIED_LABEL_MS = 1600;
 
 @Component({
   selector: 'app-landing-page',
@@ -62,6 +64,8 @@ export class LandingPageComponent implements OnInit {
   protected readonly stage = signal<PreviewStage>('idle');
   protected readonly progress = signal(0);
   protected readonly typedCount = signal(0);
+  protected readonly view = signal<PreviewView>('split');
+  protected readonly copied = signal(false);
 
   protected readonly stageLabel = computed(() => {
     switch (this.stage()) {
@@ -82,6 +86,9 @@ export class LandingPageComponent implements OnInit {
   protected readonly visibleLines = computed(() => this.mdLines.slice(0, this.typedCount()));
   protected readonly isTypingDone = computed(() => this.typedCount() >= this.mdLines.length);
   protected readonly previewOpacity = computed(() => (this.isTypingDone() ? 1 : 0.25));
+  protected readonly showMarkdownPane = computed(() => this.view() !== 'preview');
+  protected readonly showPreviewPane = computed(() => this.view() !== 'markdown');
+  protected readonly copyLabel = computed(() => (this.copied() ? 'Copied' : 'Copy'));
 
   private progressTimer: ReturnType<typeof setInterval> | undefined;
   private typingTimer: ReturnType<typeof setInterval> | undefined;
@@ -134,5 +141,45 @@ export class LandingPageComponent implements OnInit {
     clearTimeout(this.finishTimer);
     clearInterval(this.progressTimer);
     clearInterval(this.typingTimer);
+  }
+
+  protected setView(view: PreviewView): void {
+    this.view.set(view);
+  }
+
+  protected copyMarkdown(): void {
+    void navigator.clipboard.writeText(this.markdownText());
+    this.copied.set(true);
+    setTimeout(() => this.copied.set(false), COPIED_LABEL_MS);
+  }
+
+  protected downloadMarkdown(): void {
+    const blob = new Blob([this.markdownText()], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'report.md';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  /** Matches the original demo: Reset only returns to idle — it doesn't auto-replay. */
+  protected reset(): void {
+    this.clearTimers();
+    this.stage.set('idle');
+    this.progress.set(0);
+    this.typedCount.set(0);
+    this.view.set('split');
+  }
+
+  /** The idle state has no real file input on the landing page — clicking it just replays the demo. */
+  protected restartDemo(): void {
+    if (this.stage() !== 'idle') return;
+    this.clearTimers();
+    this.startConverting();
+  }
+
+  private markdownText(): string {
+    return this.mdLines.map((line) => line.text).join('\n');
   }
 }

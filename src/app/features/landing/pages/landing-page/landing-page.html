@@ -50,7 +50,7 @@
       </div>
 
       @if (stage() === 'idle') {
-        <div class="preview-idle" aria-hidden="true">
+        <button type="button" class="preview-idle" (click)="restartDemo()">
           <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
             <path d="M14 2v6h6"></path>
@@ -67,7 +67,7 @@
             <span class="tag tag-outline">CSV</span>
             <span class="tag tag-outline">DOC</span>
           </div>
-        </div>
+        </button>
       }
 
       @if (stage() === 'converting') {
@@ -89,28 +89,47 @@
             <p class="preview-filename">
               {{ demoFileName }} <span class="preview-arrow">→ report.md</span>
             </p>
-            <div class="preview-tabs" aria-hidden="true">
-              <button type="button" class="preview-tab is-active" tabindex="-1">Split</button>
-              <button type="button" class="preview-tab" tabindex="-1">Markdown</button>
-              <button type="button" class="preview-tab" tabindex="-1">Preview</button>
+            <div class="preview-tabs">
+              <button type="button" class="preview-tab" [class.is-active]="view() === 'split'" (click)="setView('split')">
+                Split
+              </button>
+              <button
+                type="button"
+                class="preview-tab"
+                [class.is-active]="view() === 'markdown'"
+                (click)="setView('markdown')"
+              >
+                Markdown
+              </button>
+              <button
+                type="button"
+                class="preview-tab"
+                [class.is-active]="view() === 'preview'"
+                (click)="setView('preview')"
+              >
+                Preview
+              </button>
             </div>
-            <div class="preview-tools" aria-hidden="true">
-              <button type="button" class="btn btn-ghost" tabindex="-1">Copy</button>
-              <button type="button" class="btn btn-ghost" tabindex="-1">Download .md</button>
-              <button type="button" class="btn btn-ghost" tabindex="-1">Reset</button>
+            <div class="preview-tools">
+              <button type="button" class="btn btn-ghost" (click)="copyMarkdown()">{{ copyLabel() }}</button>
+              <button type="button" class="btn btn-ghost" (click)="downloadMarkdown()">Download .md</button>
+              <button type="button" class="btn btn-ghost" (click)="reset()">Reset</button>
             </div>
           </div>
           <div class="preview-grid">
-            <div class="preview-pane">
-              <div class="pane-label">Markdown</div>
-              <pre class="pane-md"
-                >@for (line of visibleLines(); track $index) {<div class="md-line md-{{ line.kind }}">{{
-                  line.text
-                }}</div>}<span class="md-cursor"></span></pre>
-            </div>
-            <div class="preview-pane">
-              <div class="pane-label">Preview</div>
-              <div class="pane-preview" [style.opacity]="previewOpacity()">
+            @if (showMarkdownPane()) {
+              <div class="preview-pane" [class.is-only]="!showPreviewPane()">
+                <div class="pane-label">Markdown</div>
+                <pre class="pane-md"
+                  >@for (line of visibleLines(); track $index) {<div class="md-line md-{{ line.kind }}">{{
+                    line.text
+                  }}</div>}<span class="md-cursor"></span></pre>
+              </div>
+            }
+            @if (showPreviewPane()) {
+              <div class="preview-pane" [class.is-only]="!showMarkdownPane()">
+                <div class="pane-label">Preview</div>
+                <div class="pane-preview" [style.opacity]="previewOpacity()">
                 <h2>Annual Financial Report</h2>
                 <h3>Revenue</h3>
                 <table class="table">
@@ -144,8 +163,9 @@
                   Revenue increased consistently throughout the first quarter, led by enterprise renewals and a full
                   quarter of the new pricing tiers.
                 </p>
+                </div>
               </div>
-            </div>
+            }
           </div>
         </div>
       }

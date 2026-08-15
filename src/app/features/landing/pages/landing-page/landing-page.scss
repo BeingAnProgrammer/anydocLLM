@@ -264,9 +264,17 @@ h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
   text-align: center;
   padding: clamp(48px, 8vw, 104px) 24px;
   color: var(--color-accent);
+  background: transparent;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.preview-idle:hover {
+  background: var(--color-accent-100);
 }
 .preview-idle-title {
   font-family: var(--font-heading);
@@ -367,7 +375,7 @@ h2 {
 }
 .preview-pane {
   min-width: 0;
-  &:first-child {
+  &:first-child:not(.is-only) {
     border-right: 2px solid var(--color-divider);
   }
 }
@@ -641,6 +649,15 @@ h2 {
 }
 
 /* — closing CTA — */
+/* .cta is a <section>, so the shared `section { max-width: 1200px; margin:
+   0 auto }` rule at the top of this file would otherwise clip its purple
+   background to a centered column — undo that so only .cta-inner (below)
+   constrains the content, letting the background bleed full width. */
+.cta {
+  max-width: none;
+  margin: 0;
+  padding-inline: 0;
+}
 .cta-inner {
   /* max-width, margin, and padding-inline already come from the shared
      rule at the top of this file — only the block padding differs. */
