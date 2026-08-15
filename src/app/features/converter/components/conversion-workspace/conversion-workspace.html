@@ -1,0 +1,63 @@
+<div class="workspace">
+  <div class="file-bar">
+    <span class="ext-tag">{{ document().extension.toUpperCase() }}</span>
+    <p class="file-name">{{ document().name }}</p>
+    <span class="arrow-name">→ {{ mdFileName() }}</span>
+    <span class="spacer"></span>
+    <div class="view-tabs" role="tablist" aria-label="Workspace view">
+      <button type="button" role="tab" [attr.aria-selected]="view() === 'split'" [class.active]="view() === 'split'" (click)="setView('split')">
+        Split
+      </button>
+      <button
+        type="button"
+        role="tab"
+        [attr.aria-selected]="view() === 'markdown'"
+        [class.active]="view() === 'markdown'"
+        (click)="setView('markdown')"
+      >
+        Markdown
+      </button>
+      <button
+        type="button"
+        role="tab"
+        [attr.aria-selected]="view() === 'preview'"
+        [class.active]="view() === 'preview'"
+        (click)="setView('preview')"
+      >
+        Preview
+      </button>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div><span class="stats-label">Original</span>{{ document().name }}</div>
+    <div><span class="stats-label">Converted</span>Markdown</div>
+    <div><span class="stats-label">Size</span>{{ document().sizeLabel }}</div>
+    <div><span class="stats-label">Status</span><span class="status-ok">✓ Converted</span></div>
+    <div><span class="stats-label">Markdown</span>{{ stats() }}</div>
+  </div>
+
+  <div class="panes" [class.single]="view() !== 'split'">
+    @if (view() !== 'preview') {
+      <section class="pane pane-markdown">
+        <div class="pane-header">
+          Markdown
+          <span class="spacer"></span>
+          <button type="button" class="btn btn-ghost btn-sm" (click)="copyMarkdown()">
+            {{ copied() ? 'Copied' : 'Copy' }}
+          </button>
+          <button type="button" class="btn btn-ghost btn-sm" (click)="revertEdits()">Revert edits</button>
+        </div>
+        <app-markdown-editor class="editor-fill" [(value)]="markdown" />
+      </section>
+    }
+    @if (view() !== 'markdown') {
+      <section class="pane pane-preview">
+        <div class="pane-header">Preview</div>
+        <div class="pane-preview-body">
+          <app-markdown-preview [markdown]="markdown()" />
+        </div>
+      </section>
+    }
+  </div>
+</div>

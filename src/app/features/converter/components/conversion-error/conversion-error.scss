@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(32px, 6vw, 80px) clamp(16px, 4vw, 32px);
+}
+
+.error-card {
+  width: 100%;
+  max-width: 560px;
+  border: 2px solid var(--color-divider);
+  background: var(--color-surface);
+  padding: 28px;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 30px;
+  letter-spacing: -0.015em;
+}
+
+.message {
+  font-size: 15px;
+  line-height: 26px;
+  margin-top: 10px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}

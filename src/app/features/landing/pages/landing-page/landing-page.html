@@ -1,0 +1,283 @@
+<div class="page bg-grid">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">#</span>
+        AnyDoc LLM
+      </a>
+      <div class="nav-links">
+        <a href="#product">Product</a>
+        <a href="#how">How it works</a>
+        <a href="#formats">Supported formats</a>
+        <a href="#extension">Chrome Extension</a>
+      </div>
+      <div class="nav-actions">
+        <a href="#opensource">GitHub</a>
+        <a routerLink="/convert" class="btn btn-primary">Try AnyDoc</a>
+      </div>
+    </div>
+  </nav>
+
+  <section id="top" class="hero">
+    <div class="hero-badges">
+      <span class="tag chip-accent">Free &amp; open source</span>
+      <span class="eyebrow">Document → Markdown</span>
+    </div>
+    <h1 class="hero-title">
+      <span>Turn any document</span>
+      <span>into LLM-ready Markdown.</span>
+    </h1>
+    <p class="hero-copy">
+      Convert PDFs, Word documents, spreadsheets, and presentations into clean, structured Markdown that AI can
+      understand.
+    </p>
+    <div class="hero-actions">
+      <a routerLink="/convert" class="btn btn-primary">Convert a document</a>
+      <a href="#opensource" class="btn btn-secondary">View on GitHub</a>
+    </div>
+    <div class="hero-notes">
+      <span>Free forever. Open by design.</span>
+      <span>No subscription. No lock-in.</span>
+    </div>
+  </section>
+
+  <section id="product" class="preview-section">
+    <div class="preview">
+      <div class="preview-bar">
+        <span class="dot"></span>
+        <span class="preview-label">AnyDoc LLM — converter <code>.md</code></span>
+      </div>
+      <div class="preview-grid">
+        <div class="preview-pane">
+          <div class="pane-label">Markdown</div>
+          <pre class="pane-md">## Annual Financial Report
+
+## Revenue
+
+| Month | Revenue | Growth |
+|---|---:|---:|
+| January | $120,000 | 8.2% |
+| February | $138,000 | 15.0% |
+
+## Summary
+
+Revenue increased consistently, led by
+enterprise renewals and the new pricing tiers.</pre>
+        </div>
+        <div class="preview-pane">
+          <div class="pane-label">Preview</div>
+          <div class="pane-preview">
+            <h2>Annual Financial Report</h2>
+            <h3>Revenue</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th style="text-align: right">Revenue</th>
+                  <th style="text-align: right">Growth</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>January</td>
+                  <td style="text-align: right">$120,000</td>
+                  <td style="text-align: right">8.2%</td>
+                </tr>
+                <tr>
+                  <td>February</td>
+                  <td style="text-align: right">$138,000</td>
+                  <td style="text-align: right">15.0%</td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>Summary</h3>
+            <p>Revenue increased consistently, led by enterprise renewals and the new pricing tiers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section class="feature-row">
+    <span class="eyebrow eyebrow-accent">Built for AI workflows</span>
+    <div class="feature-grid">
+      <div>
+        <h3>Clean structure</h3>
+        <p class="text-muted">Preserve headings, tables, lists and document hierarchy.</p>
+      </div>
+      <div>
+        <h3>LLM-friendly</h3>
+        <p class="text-muted">Transform messy documents into context that language models can reason over.</p>
+      </div>
+      <div>
+        <h3>Simple</h3>
+        <p class="text-muted">Upload a file. Get Markdown. No complicated configuration.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section id="how" class="how">
+    <h2>From document to context in seconds.</h2>
+    <div class="how-grid">
+      <div class="how-step">
+        <p class="step-index">01 — Upload</p>
+        <p class="text-muted">Drop your document into AnyDoc LLM.</p>
+      </div>
+      <div class="how-step">
+        <p class="step-index">02 — Convert</p>
+        <p class="text-muted">The document is parsed and transformed into structured Markdown.</p>
+      </div>
+      <div class="how-step">
+        <p class="step-index">03 — Use</p>
+        <p class="text-muted">Preview, copy, download, or send the Markdown into your AI workflow.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section id="formats" class="formats">
+    <h2>One interface. Every format it actually reads.</h2>
+    <div class="formats-grid">
+      @for (format of formats; track format.format) {
+        <div class="format-cell">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <path d="M14 2v6h6"></path>
+          </svg>
+          <div>
+            <p class="format-name">{{ format.label }}</p>
+            <p class="format-note text-muted">{{ format.note }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section class="transform">
+    <h2>Documents were built for people. Markdown works better for machines.</h2>
+    <div class="transform-grid">
+      <div class="transform-box">
+        <p class="eyebrow">Original document</p>
+        <div class="transform-list">
+          <div class="transform-item">PDF — scanned report, two columns</div>
+          <div class="transform-item">Spreadsheet — merged cells, many sheets</div>
+          <div class="transform-item">Presentation — text inside shapes</div>
+          <div class="transform-item">Word document — nested styles</div>
+        </div>
+      </div>
+      <div class="transform-arrow">
+        <span>↓</span>
+        <span class="transform-badge">AnyDoc LLM</span>
+        <span>↓</span>
+      </div>
+      <div class="transform-box transform-box-result">
+        <p class="eyebrow eyebrow-accent">LLM-ready Markdown</p>
+        <pre class="transform-code"># Document Title
+
+## Section
+
+Structured content...
+
+| Column | Value |
+|---|---:|
+| A | 120 |
+| B | 340 |</pre>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section id="extension" class="extension">
+    <div class="extension-grid">
+      <div>
+        <span class="tag chip-accent">Chrome Extension — Coming soon</span>
+        <h2>Convert documents wherever you work.</h2>
+        <p class="text-muted">
+          AnyDoc LLM is coming to your browser. Convert documents directly from your everyday AI workflows.
+        </p>
+      </div>
+      <div class="extension-mock">
+        <div class="mock-chrome">
+          <span class="mock-dot"></span>
+          <span class="mock-dot"></span>
+          <span class="mock-dot"></span>
+          <span class="mock-address"></span>
+        </div>
+        <div class="mock-popup-row">
+          <div class="mock-popup">
+            <div class="mock-popup-header"><span class="brand-mark">#</span>AnyDoc LLM</div>
+            <div class="mock-popup-body">
+              <p class="mock-file">report.xlsx</p>
+              <p class="mock-status">✓ Converted</p>
+              <button type="button" class="btn btn-primary btn-block" disabled>Copy Markdown</button>
+              <button type="button" class="btn btn-secondary btn-block" disabled>Download</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section id="opensource" class="opensource">
+    <span class="eyebrow eyebrow-accent">Free &amp; open source</span>
+    <h2>Built in the open.</h2>
+    <p class="opensource-copy">
+      AnyDoc LLM is an open-source document-to-Markdown tool built for developers working with AI. Use it for free,
+      inspect the source, modify it, run it yourself, and build on top of it.
+    </p>
+    <div class="opensource-grid">
+      <div>
+        <h3>Free</h3>
+        <p class="text-muted">No subscription or paid plan.</p>
+      </div>
+      <div>
+        <h3>Open source</h3>
+        <p class="text-muted">The source code is publicly available.</p>
+      </div>
+      <div>
+        <h3>Run it yourself</h3>
+        <p class="text-muted">Run the project locally and keep full control over your document-processing workflow.</p>
+      </div>
+    </div>
+    <div class="opensource-actions">
+      <a href="#opensource" class="btn btn-primary">GitHub</a>
+      <a href="#opensource" class="btn btn-secondary">Star repository</a>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <h2>Give your documents a format AI understands.</h2>
+      <p class="cta-copy">Upload a document and get clean Markdown in seconds.</p>
+      <p class="cta-strong">Free, open source, and built for AI workflows.</p>
+      <div class="cta-actions">
+        <a routerLink="/convert" class="btn btn-ghost-on-accent">Convert a document</a>
+        <a href="#opensource" class="btn btn-ghost-on-accent">View GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="brand">AnyDoc LLM</p>
+        <p class="text-muted">Document → Markdown for AI. Free and open source.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#opensource">GitHub</a>
+        <a href="#extension">Chrome Extension</a>
+        <a href="#formats">Supported Formats</a>
+      </div>
+    </div>
+  </footer>
+</div>

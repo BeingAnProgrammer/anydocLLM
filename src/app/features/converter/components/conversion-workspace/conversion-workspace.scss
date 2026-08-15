@@ -1,0 +1,151 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.workspace {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.file-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px clamp(16px, 3vw, 32px);
+  border-bottom: 2px solid var(--color-divider);
+  background: var(--color-surface);
+}
+
+.ext-tag {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  padding: 5px 7px;
+  line-height: 1;
+}
+
+.file-name {
+  font-size: 14px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.arrow-name {
+  font-size: 13px;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.view-tabs {
+  display: flex;
+  border: 2px solid var(--color-divider);
+}
+
+.view-tabs button {
+  border: 0;
+  background: transparent;
+  padding: 7px 12px;
+  font-family: var(--font-body, inherit);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--color-muted);
+}
+
+.view-tabs button.active {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.stats-bar {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding: 10px clamp(16px, 3vw, 32px);
+  border-bottom: 2px solid var(--color-divider);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.stats-label {
+  display: block;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.status-ok {
+  color: var(--color-accent-700);
+}
+
+.panes {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.panes.single {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 720px) {
+  .panes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.panes:not(.single) .pane-markdown {
+  border-right: 2px solid var(--color-divider);
+}
+
+.pane-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px clamp(16px, 3vw, 24px);
+  border-bottom: 1px solid var(--color-divider);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.btn-sm {
+  font-size: 12px;
+  padding: 4px 10px;
+}
+
+.editor-fill {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.pane-preview-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 28px clamp(16px, 3vw, 32px);
+  background: var(--color-surface);
+}

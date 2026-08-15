@@ -1,0 +1,51 @@
+<div class="converter-shell bg-grid">
+  <header class="workspace-header">
+    <a routerLink="/" class="brand">
+      <span class="brand-mark">#</span>
+      AnyDoc LLM
+    </a>
+    <span class="workspace-tag text-muted">Workspace</span>
+    <span class="spacer"></span>
+    @if (state() === 'completed') {
+      <div class="header-actions">
+        <button type="button" class="btn btn-ghost" (click)="copyMarkdown()">
+          {{ copied() ? 'Copied' : 'Copy' }}
+        </button>
+        <button type="button" class="btn btn-ghost" (click)="onNewDocument()">New document</button>
+        <button type="button" class="btn btn-primary" (click)="downloadMarkdown()">Download .md</button>
+      </div>
+    }
+  </header>
+
+  @switch (state()) {
+    @case ('idle') {
+      <app-upload-state [notice]="notice()" (fileSelected)="onFileSelected($event)" />
+    }
+    @case ('selected') {
+      @if (selectedDocument(); as document) {
+        <app-selected-file [document]="document" (convert)="onConvert()" (remove)="onRemove()" />
+      }
+    }
+    @case ('converting') {
+      @if (selectedDocument(); as document) {
+        <app-conversion-state [document]="document" [stageIndex]="stageIndex()" />
+      }
+    }
+    @case ('completed') {
+      @if (selectedDocument(); as document) {
+        <app-conversion-workspace [document]="document" [originalMarkdown]="originalMarkdown()" [(markdown)]="markdown" />
+      }
+    }
+    @case ('error') {
+      @if (error(); as conversionError) {
+        <app-conversion-error [error]="conversionError" (retry)="onRetry()" (chooseAnother)="onChooseAnother()" />
+      }
+    }
+  }
+
+  <footer class="site-footer">
+    <span>AnyDoc LLM — free and open source</span>
+    <span class="spacer"></span>
+    <a routerLink="/">Back to site</a>
+  </footer>
+</div>

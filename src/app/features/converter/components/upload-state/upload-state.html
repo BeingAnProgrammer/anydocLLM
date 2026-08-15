@@ -1,0 +1,12 @@
+<div class="upload-state">
+  <h1>AnyDoc LLM</h1>
+  <p class="tagline">Convert documents into LLM-ready Markdown.</p>
+
+  <app-file-upload (fileSelected)="fileSelected.emit($event)" />
+
+  @if (notice(); as n) {
+    <div class="notice" role="alert">
+      <p class="notice-message">{{ n.message }}</p>
+    </div>
+  }
+</div>
