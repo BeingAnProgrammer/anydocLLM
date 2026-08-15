@@ -99,6 +99,7 @@
   font-size: 15px;
   line-height: 28px;
   margin-top: 6px;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
 }
 .preview-idle-tags {
   display: flex;
@@ -172,12 +173,15 @@
   border: 0;
   padding: 7px 12px;
   font-family: var(--font-body);
-  cursor: default;
+  cursor: pointer;
   background: transparent;
 }
 .preview-tools {
   display: flex;
   gap: 8px;
+}
+.preview-tools .btn {
+  font-size: 13px;
 }
 .preview-grid {
   display: grid;
@@ -197,7 +201,7 @@
   overflow: auto;
   margin: 0;
   padding: 20px 16px;
-  min-height: 320px;
+  min-height: 420px;
   white-space: pre-wrap;
 }
 .md-heading {
@@ -228,7 +232,7 @@
 }
 .pane-preview {
   padding: 24px 20px;
-  min-height: 320px;
+  min-height: 420px;
 
   h2 {
     font-size: 26px;
@@ -241,6 +245,10 @@
     letter-spacing: 0.02em;
     text-transform: uppercase;
     margin-top: 24px;
+
+    &:nth-of-type(2) {
+      margin-top: 28px;
+    }
   }
   p {
     font-size: 15px;

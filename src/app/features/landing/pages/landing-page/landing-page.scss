@@ -83,6 +83,7 @@ h2 {
 }
 .eyebrow {
   display: block;
+  line-height: 14px;
 }
 .eyebrow-accent,
 .mock-status {
@@ -160,12 +161,17 @@ h2 {
   letter-spacing: 0.1em;
   font-weight: 700;
   padding: 7px 10px;
+  font-size: 12px;
+  line-height: 1;
 }
 .hero-title {
   font-size: clamp(40px, 6vw, 78px);
   line-height: 1.06;
   letter-spacing: -0.02em;
   max-width: 18ch;
+  /* Optical alignment: the negative letter-spacing leaves visual whitespace
+     before the first glyph at this size — nudge it back to true left edge. */
+  margin-left: -0.058em;
 
   span {
     display: block;
@@ -232,6 +238,10 @@ h2 {
 .faq-list {
   margin-top: 44px;
 }
+.how h2 {
+  margin-left: -0.04em;
+  max-width: 20ch;
+}
 .how-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -266,6 +276,18 @@ h2 {
 }
 
 /* — formats — */
+/* Also covers .opensource h2 and .pipelines h2 below — the three headings
+   that need only this one optical-alignment correction and nothing else. */
+.formats h2,
+.opensource h2,
+.pipelines h2 {
+  margin-left: -0.04em;
+}
+.formats-note {
+  font-size: 14px;
+  line-height: 26px;
+  margin-top: 16px;
+}
 .formats-grid {
   grid-template-columns: repeat(auto-fit, minmax(max(25%, 150px), 1fr));
   margin-top: 40px;
@@ -296,6 +318,10 @@ h2 {
 }
 
 /* — transform — */
+.transform h2 {
+  margin-left: -0.04em;
+  max-width: 24ch;
+}
 .transform-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -340,6 +366,9 @@ h2 {
   padding: 10px 16px;
   letter-spacing: 0.02em;
 }
+.transform-arrow-glyph {
+  line-height: 1;
+}
 
 /* — extension — */
 .extension-grid {
@@ -350,7 +379,9 @@ h2 {
 }
 .extension h2 {
   font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.1;
   margin-top: 20px;
+  margin-left: -0.04em;
 }
 .extension-grid .tag {
   margin-bottom: 20px;
@@ -395,6 +426,74 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+/* This mockup's own brand mark and buttons are scaled down from the real
+   nav/toolbar ones to read correctly inside the 270px popup illustration. */
+.mock-brand-mark {
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+}
+.mock-btn {
+  font-size: 13px;
+}
+
+/* — pipelines — */
+.pipelines {
+  padding-block: 64px;
+}
+.pipelines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+.pipelines-cli,
+.pipelines-api {
+  border: 2px solid var(--color-divider);
+  padding: 24px;
+}
+.pipelines-cli {
+  background: var(--color-neutral-900);
+  color: var(--color-bg);
+}
+.pipelines-cli-label,
+.pipelines-api-label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+.pipelines-cli-label {
+  opacity: 0.7;
+}
+.pipelines-cli-code {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 24px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.pipelines-cli-prompt {
+  color: var(--color-accent-400);
+}
+.pipelines-dim {
+  opacity: 0.6;
+}
+.pipelines-api-label {
+  color: var(--color-accent-700);
+}
+.pipelines-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 22px;
+}
+.pipelines-flow-arrow {
+  color: color-mix(in srgb, var(--color-text) 40%, transparent);
 }
 
 /* — open source — */
@@ -446,6 +545,7 @@ h2 {
   line-height: 1.06;
   letter-spacing: -0.015em;
   max-width: 20ch;
+  margin-left: -0.058em;
 }
 .cta-copy {
   margin-top: 24px;

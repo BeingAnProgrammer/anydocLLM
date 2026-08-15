@@ -104,6 +104,7 @@
         </div>
       }
     </div>
+    <p class="formats-note text-muted">…and other common document formats.</p>
   </section>
 
   <hr class="hr" />
@@ -121,9 +122,9 @@
         </div>
       </div>
       <div class="transform-arrow">
-        <span>↓</span>
+        <span class="transform-arrow-glyph">↓</span>
         <span class="transform-badge">AnyDoc LLM</span>
-        <span>↓</span>
+        <span class="transform-arrow-glyph">↓</span>
       </div>
       <div class="transform-box transform-box-result">
         <p class="eyebrow eyebrow-accent">LLM-ready Markdown</p>
@@ -161,14 +162,40 @@ Structured content...
         </div>
         <div class="mock-popup-row">
           <div class="mock-popup">
-            <div class="mock-popup-header"><span class="brand-mark">#</span>AnyDoc LLM</div>
+            <div class="mock-popup-header"><span class="brand-mark mock-brand-mark">#</span>AnyDoc LLM</div>
             <div class="mock-popup-body">
               <p class="mock-file">report.xlsx</p>
               <p class="mock-status">✓ Converted</p>
-              <button type="button" class="btn btn-primary btn-block" tabindex="-1">Copy Markdown</button>
-              <button type="button" class="btn btn-ghost btn-block" tabindex="-1">Download</button>
+              <button type="button" class="btn btn-primary btn-block mock-btn" tabindex="-1">Copy Markdown</button>
+              <button type="button" class="btn btn-ghost btn-block mock-btn" tabindex="-1">Download</button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section class="pipelines">
+    <h2>Built for humans. Ready for pipelines.</h2>
+    <div class="pipelines-grid">
+      <div class="pipelines-cli">
+        <p class="pipelines-cli-label">Command line</p>
+        <pre class="pipelines-cli-code"><span class="pipelines-cli-prompt">$</span> anydoc report.xlsx --output report.md
+<span class="pipelines-dim">→ parsed 14 sheets · 3 tables preserved</span>
+<span class="pipelines-dim">→ wrote report.md (12.4 KB)</span></pre>
+      </div>
+      <div class="pipelines-api">
+        <p class="pipelines-api-label">Developer API — Coming soon</p>
+        <div class="pipelines-flow">
+          <span>Your document</span>
+          <span class="pipelines-flow-arrow">↓</span>
+          <span>AnyDoc LLM</span>
+          <span class="pipelines-flow-arrow">↓</span>
+          <span>Markdown</span>
+          <span class="pipelines-flow-arrow">↓</span>
+          <span>RAG / AI agent / LLM / knowledge base</span>
         </div>
       </div>
     </div>
