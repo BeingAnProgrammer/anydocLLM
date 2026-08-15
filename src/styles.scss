@@ -7,18 +7,18 @@
   --color-muted: color-mix(in srgb, var(--color-text) 65%, transparent);
   --color-divider: color-mix(in srgb, #201e1d 40%, transparent);
 
-  // Muted purple accent — final, do not change hue.
-  --color-accent: #6e3162;
-  --color-accent-hover: #5e2a54;
-  --color-accent-100: #f3ebf1;
-  --color-accent-200: #e2d3de;
-  --color-accent-300: #c4a7bc;
-  --color-accent-400: #9a6390;
-  --color-accent-500: #6e3162;
-  --color-accent-600: #5e2a54;
-  --color-accent-700: #4c2244;
-  --color-accent-800: #3a1a34;
-  --color-accent-900: #271122;
+  // Warm orange accent — final, do not change hue.
+  --color-accent: #c75d1a;
+  --color-accent-hover: #a84d14;
+  --color-accent-100: #fff3eb;
+  --color-accent-200: #fde1c7;
+  --color-accent-300: #f7bd8a;
+  --color-accent-400: #ee8d43;
+  --color-accent-500: #c75d1a;
+  --color-accent-600: #a84d14;
+  --color-accent-700: #874112;
+  --color-accent-800: #66310d;
+  --color-accent-900: #432209;
 
   --color-neutral-100: #f8f4f4;
   --color-neutral-200: #eae7e7;
