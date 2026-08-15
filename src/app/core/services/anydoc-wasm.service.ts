@@ -5,20 +5,15 @@ import type { Format } from '@firecrawl/anydoc-wasm';
  * Isolates the @firecrawl/anydoc-wasm package from the rest of the app.
  * Nothing outside this file imports the package directly.
  *
- * The WASM module (~6.7 MB) is loaded once, lazily, the first time this
- * service is constructed — which happens when the /convert route is opened
- * (ConverterPageComponent → ConversionService → here), not on the landing
- * page. Every caller after the first await shares the same init promise.
+ * The WASM module (~6.7 MB) loads lazily, only the first time `convert()` is
+ * actually called with a non-PDF file — not when the /convert route opens,
+ * and not for PDFs (those go through PdfInspectorWasmService instead, so
+ * only one of the two engines ever loads per session). Every call after the
+ * first shares the same init promise.
  */
 @Injectable({ providedIn: 'root' })
 export class AnyDocWasmService {
   private modulePromise: Promise<typeof import('@firecrawl/anydoc-wasm')> | null = null;
-
-  constructor() {
-    // Kick off the load as soon as the converter feature is reached, so the
-    // module is likely ready by the time the user finishes picking a file.
-    void this.load();
-  }
 
   private load(): Promise<typeof import('@firecrawl/anydoc-wasm')> {
     if (!this.modulePromise) {

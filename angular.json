@@ -33,6 +33,11 @@
                 "glob": "anydoc_wasm_bg.wasm",
                 "input": "node_modules/@firecrawl/anydoc-wasm",
                 "output": "."
+              },
+              {
+                "glob": "pdf_inspector_wasm_bg.wasm",
+                "input": "node_modules/@firecrawl/pdf-inspector-wasm",
+                "output": "."
               }
             ],
             "styles": ["src/styles.scss"]

@@ -6,14 +6,15 @@ export interface ConversionStage {
 }
 
 /**
- * AnyDoc converts in one call — it extracts, structures, and emits Markdown
- * as a single atomic step, so there's no honest way to report progress
- * through those as separate stages. Two real stages: reading the file into
- * memory, then handing it to the engine.
+ * Both conversion engines (AnyDoc, PDF Inspector) convert in one call — they
+ * extract, structure, and emit Markdown as a single atomic step, so there's
+ * no honest way to report progress through those as separate stages. Two
+ * real stages: reading the file into memory, then handing it to whichever
+ * engine handles the format — the UI doesn't know or say which one that is.
  */
 export const CONVERSION_STAGES: readonly ConversionStage[] = [
   { label: 'Reading document' },
-  { label: 'Converting with AnyDoc' },
+  { label: 'Converting document' },
 ];
 
 export interface ConversionResult {

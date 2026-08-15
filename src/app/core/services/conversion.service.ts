@@ -2,26 +2,32 @@ import { Injectable, inject } from '@angular/core';
 import type { SelectedDocument } from '../models/document.model';
 import type { ConversionError, ConversionResult } from '../models/conversion.model';
 import { AnyDocWasmService } from './anydoc-wasm.service';
+import { PdfInspectorWasmService } from './pdf-inspector-wasm.service';
 
 /** Reports which of the two pipeline stages just completed (0-based). */
 export type ConversionProgressCallback = (stageIndex: number) => void;
 
 /**
- * Hides the document → Markdown engine (AnyDoc WASM) behind one call. The UI
- * never imports @firecrawl/anydoc-wasm directly, so the engine could change
- * without touching any component.
+ * Hides the document → Markdown engine behind one call. The UI never imports
+ * @firecrawl/anydoc-wasm or @firecrawl/pdf-inspector-wasm directly, and never
+ * knows which one ran — PDF gets pdf-inspector's PDF-specific extraction,
+ * every other supported format goes through AnyDoc's general-purpose engine.
  */
 @Injectable({ providedIn: 'root' })
 export class ConversionService {
   private readonly anyDoc = inject(AnyDocWasmService);
+  private readonly pdfInspector = inject(PdfInspectorWasmService);
 
   async convert(document: SelectedDocument, onProgress: ConversionProgressCallback): Promise<ConversionResult> {
     onProgress(0); // Reading document
     const bytes = new Uint8Array(await document.file.arrayBuffer());
 
     try {
-      onProgress(1); // Converting with AnyDoc
-      const markdown = await this.anyDoc.convert(bytes, document.format);
+      onProgress(1); // Converting
+      const markdown =
+        document.format === 'pdf'
+          ? await this.pdfInspector.convert(bytes)
+          : await this.anyDoc.convert(bytes, document.format);
       return { markdown };
     } catch (thrown) {
       console.error('AnyDoc LLM: conversion failed', thrown);

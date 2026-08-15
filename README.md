@@ -11,24 +11,30 @@ Angular (standalone components, signals)
   ↓
 ConversionService
   ↓
-@firecrawl/anydoc-wasm  (AnyDoc, compiled to WebAssembly)
-  ↓
-Markdown
-  ↓
-Markdown editor / live preview
-  ↓
-Copy or download .md
+        ┌──────────┴──────────┐
+        │                     │
+      PDF                  everything else
+        ↓                     ↓
+@firecrawl/pdf-inspector-wasm   @firecrawl/anydoc-wasm
+        │                     │
+        └──────────┬──────────┘
+                    ↓
+                Markdown
+                    ↓
+      Markdown editor / live preview
+                    ↓
+           Copy or download .md
 ```
 
-Documents are converted **entirely inside the browser tab** using [AnyDoc](https://github.com/firecrawl/anydoc), an open-source Rust document-to-Markdown engine, compiled to WebAssembly via the official `@firecrawl/anydoc-wasm` package (MIT license). A file never leaves the browser: there is no backend, no custom API, and no call to Firecrawl's hosted API.
+Documents are converted **entirely inside the browser tab**, using two open-source Rust engines compiled to WebAssembly (both MIT-licensed, both from the [Firecrawl](https://github.com/firecrawl) team): [pdf-inspector](https://github.com/firecrawl/pdf-inspector) for PDFs specifically, and [AnyDoc](https://github.com/firecrawl/anydoc) for every other supported format. A file never leaves the browser: there is no backend, no custom API, and no call to Firecrawl's hosted API.
 
-The WASM engine is isolated behind `AnyDocWasmService` (`src/app/core/services/anydoc-wasm.service.ts`), which the rest of the app never talks to directly — everything goes through `ConversionService`. That keeps the UI decoupled from the specific parsing engine: swapping AnyDoc for something else later would mean changing one service, not the app.
+Each engine is isolated behind its own service — `PdfInspectorWasmService` and `AnyDocWasmService` (`src/app/core/services/`) — which the rest of the app never talks to directly. Everything goes through `ConversionService`, which picks the engine by format and hands both the same job: bytes in, Markdown out. That keeps the UI decoupled from which engine ran; a component never knows or needs to know.
 
-The AnyDoc WASM module (a few MB) is loaded lazily, only once the `/convert` route is opened — the landing page never pays that cost.
+Both WASM modules are loaded lazily and independently: opening `/convert` loads neither, and only the engine the selected file actually needs loads once conversion starts — a PDF never triggers AnyDoc, and a DOCX never triggers pdf-inspector. The landing page never pays for either.
 
 ## Supported formats
 
-PDF, DOCX, DOC, XLSX, XLS, PPTX, PPT, CSV, ODT, ODS, ODP, RTF, EPUB — the exact set AnyDoc declares support for (`src/app/core/models/supported-file.model.ts`, typed against the package's own `Format` union so a version bump that changes what's supported fails the build here rather than drifting silently).
+PDF, DOCX, DOC, XLSX, XLS, PPTX, PPT, CSV, ODT, ODS, ODP, RTF, EPUB — the exact set the two engines declare support for (`src/app/core/models/supported-file.model.ts`, typed against AnyDoc's own `Format` union so a version bump that changes what's supported fails the build here rather than drifting silently).
 
 ## Development server
 
