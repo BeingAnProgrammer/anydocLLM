@@ -1,23 +1,26 @@
+<a href="#main" class="skip-link">Skip to content</a>
 <div class="page bg-grid">
-  <nav class="nav">
+  <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
       <a href="#top" class="brand">
-        <span class="brand-mark">#</span>
+        <span class="brand-mark" aria-hidden="true">#</span>
         AnyDoc LLM
       </a>
       <div class="nav-links">
         <a href="#product">Product</a>
         <a href="#how">How it works</a>
         <a href="#formats">Supported formats</a>
+        <a href="#faq">FAQ</a>
         <a href="#extension">Chrome Extension</a>
       </div>
       <div class="nav-actions">
-        <a href="#opensource">GitHub</a>
+        <a href="https://github.com/BeingAnProgrammer/anydocLLM" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a routerLink="/convert" class="btn btn-primary">Try AnyDoc</a>
       </div>
     </div>
   </nav>
 
+  <main id="main">
   <section id="top" class="hero">
     <div class="hero-badges">
       <span class="tag chip-accent">Free &amp; open source</span>
@@ -33,7 +36,7 @@
     </p>
     <div class="hero-actions">
       <a routerLink="/convert" class="btn btn-primary">Convert a document</a>
-      <a href="#opensource" class="btn btn-ghost">View on GitHub</a>
+      <a href="https://github.com/BeingAnProgrammer/anydocLLM" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View on GitHub</a>
     </div>
     <div class="hero-notes">
       <span>Free forever. Open by design.</span>
@@ -51,7 +54,7 @@
 
       @if (stage() === 'idle') {
         <button type="button" class="preview-idle" (click)="restartDemo()">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
             <path d="M14 2v6h6"></path>
             <path d="M12 18v-6"></path>
@@ -219,7 +222,7 @@
     <div class="formats-grid">
       @for (format of formats; track format.format) {
         <div class="format-cell">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
             <path d="M14 2v6h6"></path>
           </svg>
@@ -324,9 +327,72 @@ Structured content...
       </div>
     </div>
     <div class="opensource-actions">
-      <a href="#opensource" class="btn btn-primary">GitHub</a>
-      <a href="#opensource" class="btn btn-ghost">Star repository</a>
-      <a href="#opensource" class="btn btn-ghost">Documentation</a>
+      <a href="https://github.com/BeingAnProgrammer/anydocLLM" target="_blank" rel="noopener noreferrer" class="btn btn-primary">GitHub</a>
+      <a href="https://github.com/BeingAnProgrammer/anydocLLM" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Star repository</a>
+      <a href="https://github.com/BeingAnProgrammer/anydocLLM#readme" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Documentation</a>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section id="faq" class="faq">
+    <h2>Frequently asked questions.</h2>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary><h3>What is AnyDoc LLM?</h3></summary>
+        <p class="text-muted">
+          AnyDoc LLM is a free, open-source tool that converts documents into clean, LLM-ready Markdown entirely
+          inside your browser — no account, no upload, no server round-trip.
+        </p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>How do I convert a PDF to Markdown?</h3></summary>
+        <p class="text-muted">
+          Open the converter, drop in a PDF, and AnyDoc LLM extracts its text and structure into Markdown you can
+          preview, copy, or download.
+        </p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Can I convert DOCX to Markdown?</h3></summary>
+        <p class="text-muted">Yes. DOCX and legacy DOC Word documents are both supported.</p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Can I convert Excel files to Markdown?</h3></summary>
+        <p class="text-muted">Yes. XLSX and legacy XLS spreadsheets convert to Markdown tables.</p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Does AnyDoc LLM require an API key?</h3></summary>
+        <p class="text-muted">
+          No. There's no API and no configuration — conversion runs locally using WebAssembly.
+        </p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Are my files uploaded to a server?</h3></summary>
+        <p class="text-muted">
+          No. Documents are parsed entirely in your browser tab; they are never uploaded or sent anywhere.
+        </p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Is AnyDoc LLM free?</h3></summary>
+        <p class="text-muted">Yes. AnyDoc LLM is free to use, with no subscription or paid tier.</p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Is AnyDoc LLM open source?</h3></summary>
+        <p class="text-muted">Yes. The source code is publicly available on GitHub.</p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Which document formats are supported?</h3></summary>
+        <p class="text-muted">
+          PDF, DOCX, DOC, XLSX, XLS, PPTX, PPT, CSV, ODT, ODS, ODP, RTF, and EPUB.
+        </p>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Why convert documents to Markdown for LLMs?</h3></summary>
+        <p class="text-muted">
+          Markdown strips away visual formatting and keeps clean structure — headings, lists, tables — which
+          language models parse more reliably than PDFs or binary office formats.
+        </p>
+      </details>
     </div>
   </section>
 
@@ -337,10 +403,11 @@ Structured content...
       <p class="cta-strong">Free, open source, and built for AI workflows.</p>
       <div class="cta-actions">
         <a routerLink="/convert" class="btn btn-ghost-on-accent">Convert a document</a>
-        <a href="#opensource" class="btn btn-ghost-on-accent">View GitHub</a>
+        <a href="https://github.com/BeingAnProgrammer/anydocLLM" target="_blank" rel="noopener noreferrer" class="btn btn-ghost-on-accent">View GitHub</a>
       </div>
     </div>
   </section>
+  </main>
 
   <footer class="site-footer">
     <div class="footer-inner">
@@ -349,9 +416,9 @@ Structured content...
         <p class="text-muted">Document → Markdown for AI. Free and open source.</p>
       </div>
       <div class="footer-links">
-        <a href="#opensource">GitHub</a>
+        <a href="https://github.com/BeingAnProgrammer/anydocLLM" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="#extension">Chrome Extension</a>
-        <a href="#opensource">Documentation</a>
+        <a href="https://github.com/BeingAnProgrammer/anydocLLM#readme" target="_blank" rel="noopener noreferrer">Documentation</a>
         <a href="#formats">Supported Formats</a>
       </div>
     </div>

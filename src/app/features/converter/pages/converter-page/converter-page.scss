@@ -10,6 +10,13 @@
   background: var(--color-bg);
 }
 
+/* Keeps the <main> landmark out of the flex box tree so the state
+   components below it still behave as direct flex:1 children of
+   .converter-shell, unchanged from before this element existed. */
+.converter-main {
+  display: contents;
+}
+
 .workspace-header {
   border-bottom: 2px solid var(--color-divider);
   background: color-mix(in srgb, var(--color-bg) 90%, transparent);

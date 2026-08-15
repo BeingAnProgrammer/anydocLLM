@@ -463,17 +463,19 @@ h2 {
   gap: 32px;
   margin-top: 32px;
 }
-/* .feature-row (above) takes 56px; these five take 64px instead. */
+/* .feature-row (above) takes 56px; these six take 64px instead. */
 .how,
 .formats,
 .transform,
 .extension,
-.opensource {
+.opensource,
+.faq {
   padding-block: 64px;
 }
 .how-grid,
 .transform-grid,
-.opensource-grid {
+.opensource-grid,
+.faq-list {
   margin-top: 44px;
 }
 .how-grid {
@@ -646,6 +648,25 @@ h2 {
 .opensource-actions {
   gap: 10px;
   margin-top: 32px;
+}
+
+/* — faq — */
+.faq-item {
+  border-top: 2px solid var(--color-divider);
+  padding: 20px 0;
+
+  &:last-child {
+    border-bottom: 2px solid var(--color-divider);
+  }
+}
+.faq-item summary {
+  cursor: pointer;
+}
+.faq-item p {
+  margin-top: 12px;
+  max-width: 62ch;
+  font-size: 15px;
+  line-height: 26px;
 }
 
 /* — closing CTA — */

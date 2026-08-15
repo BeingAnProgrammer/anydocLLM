@@ -7,6 +7,7 @@ import { ClipboardService } from '../../../../core/services/clipboard.service';
 import { ConversionService } from '../../../../core/services/conversion.service';
 import { DocumentService } from '../../../../core/services/document.service';
 import { DownloadService } from '../../../../core/services/download.service';
+import { SeoService } from '../../../../core/services/seo.service';
 import { ConversionErrorComponent } from '../../components/conversion-error/conversion-error';
 import { ConversionStateComponent } from '../../components/conversion-state/conversion-state';
 import { ConversionWorkspaceComponent } from '../../components/conversion-workspace/conversion-workspace';
@@ -32,6 +33,16 @@ export class ConverterPageComponent {
   private readonly conversionService = inject(ConversionService);
   private readonly clipboardService = inject(ClipboardService);
   private readonly downloadService = inject(DownloadService);
+
+  constructor() {
+    inject(SeoService).update({
+      path: 'convert',
+      description: 'Upload a document and convert it to Markdown instantly in your browser — free, private, and open source.',
+      // Thin, state-driven utility page — kept out of search results while
+      // still linked from and linking back to the indexable homepage.
+      robots: 'noindex, follow',
+    });
+  }
 
   protected readonly state = signal<ConverterState>('idle');
   protected readonly selectedDocument = signal<SelectedDocument | null>(null);

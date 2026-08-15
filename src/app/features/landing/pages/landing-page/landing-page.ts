@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, signal, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SUPPORTED_FORMATS } from '../../../../core/models/supported-file.model';
+import { SeoService } from '../../../../core/services/seo.service';
 
 type PreviewStage = 'idle' | 'converting' | 'done';
 type PreviewView = 'split' | 'markdown' | 'preview';
@@ -56,6 +57,7 @@ const COPIED_LABEL_MS = 1600;
 })
 export class LandingPageComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
+  private readonly seoService = inject(SeoService);
 
   protected readonly formats = SUPPORTED_FORMATS;
   protected readonly demoFileName = DEMO_FILE_NAME;
@@ -96,6 +98,12 @@ export class LandingPageComponent implements OnInit {
   private finishTimer: ReturnType<typeof setTimeout> | undefined;
 
   ngOnInit(): void {
+    this.seoService.update({
+      path: '',
+      description:
+        'Convert PDF, DOCX, XLSX, PPTX, CSV and more into clean, LLM-ready Markdown — entirely in your browser. Free and open source, no upload, no account.',
+      robots: 'index, follow',
+    });
     this.destroyRef.onDestroy(() => this.clearTimers());
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

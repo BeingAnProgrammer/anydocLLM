@@ -1,7 +1,8 @@
+<a href="#main" class="skip-link">Skip to content</a>
 <div class="converter-shell bg-grid">
   <header class="workspace-header">
     <a routerLink="/" class="brand">
-      <span class="brand-mark">#</span>
+      <span class="brand-mark" aria-hidden="true">#</span>
       AnyDoc LLM
     </a>
     <span class="workspace-tag text-muted">Workspace</span>
@@ -17,6 +18,7 @@
     }
   </header>
 
+  <main id="main" class="converter-main">
   @switch (state()) {
     @case ('idle') {
       <app-upload-state [notice]="notice()" (fileSelected)="onFileSelected($event)" />
@@ -42,6 +44,7 @@
       }
     }
   }
+  </main>
 
   <footer class="site-footer">
     <span>AnyDoc LLM — free and open source</span>

@@ -7,9 +7,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Convert PDFs, Word documents, spreadsheets, and presentations into clean, structured Markdown for AI. Free and open source, entirely in your browser."
+      content="Convert PDF, DOCX, XLSX, PPTX, CSV and more into clean, LLM-ready Markdown — entirely in your browser. Free and open source, no upload, no account."
     />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://anydocllm.rvnk.in/" />
+    <meta name="theme-color" content="#f3f2f2" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AnyDoc LLM" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://anydocllm.rvnk.in/" />
+    <meta property="og:title" content="AnyDoc LLM — Turn any document into LLM-ready Markdown" />
+    <meta
+      property="og:description"
+      content="Convert PDF, DOCX, XLSX, PPTX, CSV and more into clean, LLM-ready Markdown — entirely in your browser. Free and open source, no upload, no account."
+    />
+    <meta property="og:image" content="https://anydocllm.rvnk.in/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AnyDoc LLM — Turn any document into LLM-ready Markdown" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AnyDoc LLM — Turn any document into LLM-ready Markdown" />
+    <meta
+      name="twitter:description"
+      content="Convert PDF, DOCX, XLSX, PPTX, CSV and more into clean, LLM-ready Markdown — entirely in your browser. Free and open source, no upload, no account."
+    />
+    <meta name="twitter:image" content="https://anydocllm.rvnk.in/og-image.png" />
+    <meta name="twitter:image:alt" content="AnyDoc LLM — Turn any document into LLM-ready Markdown" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "name": "AnyDoc LLM",
+            "url": "https://anydocllm.rvnk.in/",
+            "description": "Convert PDF, DOCX, XLSX, PPTX, CSV and more into clean, LLM-ready Markdown — entirely in your browser."
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "AnyDoc LLM",
+            "url": "https://anydocllm.rvnk.in/",
+            "applicationCategory": "BrowserApplication",
+            "operatingSystem": "Any modern web browser",
+            "description": "A free, open-source, browser-based tool that converts PDF, DOCX, XLSX, PPTX, CSV and other documents into clean, LLM-ready Markdown. Conversion runs locally using WebAssembly — documents are never uploaded to a server.",
+            "isAccessibleForFree": true,
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "sameAs": ["https://github.com/BeingAnProgrammer/anydocLLM"]
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is AnyDoc LLM?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "AnyDoc LLM is a free, open-source tool that converts documents into clean, LLM-ready Markdown entirely inside your browser — no account, no upload, no server round-trip."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I convert a PDF to Markdown?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Open the converter, drop in a PDF, and AnyDoc LLM extracts its text and structure into Markdown you can preview, copy, or download."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I convert DOCX to Markdown?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. DOCX and legacy DOC Word documents are both supported."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I convert Excel files to Markdown?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. XLSX and legacy XLS spreadsheets convert to Markdown tables."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does AnyDoc LLM require an API key?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. There's no API and no configuration — conversion runs locally using WebAssembly."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Are my files uploaded to a server?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. Documents are parsed entirely in your browser tab; they are never uploaded or sent anywhere."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is AnyDoc LLM free?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. AnyDoc LLM is free to use, with no subscription or paid tier."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is AnyDoc LLM open source?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. The source code is publicly available on GitHub."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which document formats are supported?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "PDF, DOCX, DOC, XLSX, XLS, PPTX, PPT, CSV, ODT, ODS, ODP, RTF, and EPUB."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Why convert documents to Markdown for LLMs?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Markdown strips away visual formatting and keeps clean structure — headings, lists, tables — which language models parse more reliably than PDFs or binary office formats."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <app-root></app-root>
