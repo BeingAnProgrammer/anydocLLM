@@ -31,6 +31,7 @@
   --color-neutral-900: #2d2b2b;
 
   --font-heading: 'Archivo', system-ui, sans-serif;
+  --font-body: 'Archivo', system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --space-1: 4px;
@@ -60,7 +61,7 @@ body {
 body {
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-body, system-ui), sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.55;
   text-wrap: pretty;
@@ -164,7 +165,7 @@ img {
 }
 .btn-ghost {
   color: var(--color-accent);
-  padding-inline: var(--space-2);
+  padding-inline: var(--space-1);
 }
 .btn-ghost:hover:not(:disabled) {
   background: color-mix(in srgb, var(--color-accent) 10%, transparent);
@@ -190,6 +191,10 @@ img {
 .tag-outline {
   border: 1px solid var(--color-accent);
   color: var(--color-accent);
+}
+.tag-accent {
+  background: var(--color-accent-100);
+  color: var(--color-accent-800);
 }
 
 /* — tables — */

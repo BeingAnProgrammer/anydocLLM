@@ -28,12 +28,12 @@
       <span>into LLM-ready Markdown.</span>
     </h1>
     <p class="hero-copy">
-      Convert PDFs, Word documents, spreadsheets, and presentations into clean, structured Markdown that AI can
+      Convert PDFs, Word documents, spreadsheets, presentations, and more into clean, structured Markdown that AI can
       understand.
     </p>
     <div class="hero-actions">
       <a routerLink="/convert" class="btn btn-primary">Convert a document</a>
-      <a href="#opensource" class="btn btn-secondary">View on GitHub</a>
+      <a href="#opensource" class="btn btn-ghost">View on GitHub</a>
     </div>
     <div class="hero-notes">
       <span>Free forever. Open by design.</span>
@@ -46,55 +46,109 @@
       <div class="preview-bar">
         <span class="dot"></span>
         <span class="preview-label">AnyDoc LLM — converter <code>.md</code></span>
+        <span class="preview-status">{{ stageLabel() }}</span>
       </div>
-      <div class="preview-grid">
-        <div class="preview-pane">
-          <div class="pane-label">Markdown</div>
-          <pre class="pane-md">## Annual Financial Report
 
-## Revenue
-
-| Month | Revenue | Growth |
-|---|---:|---:|
-| January | $120,000 | 8.2% |
-| February | $138,000 | 15.0% |
-
-## Summary
-
-Revenue increased consistently, led by
-enterprise renewals and the new pricing tiers.</pre>
-        </div>
-        <div class="preview-pane">
-          <div class="pane-label">Preview</div>
-          <div class="pane-preview">
-            <h2>Annual Financial Report</h2>
-            <h3>Revenue</h3>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th style="text-align: right">Revenue</th>
-                  <th style="text-align: right">Growth</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>January</td>
-                  <td style="text-align: right">$120,000</td>
-                  <td style="text-align: right">8.2%</td>
-                </tr>
-                <tr>
-                  <td>February</td>
-                  <td style="text-align: right">$138,000</td>
-                  <td style="text-align: right">15.0%</td>
-                </tr>
-              </tbody>
-            </table>
-            <h3>Summary</h3>
-            <p>Revenue increased consistently, led by enterprise renewals and the new pricing tiers.</p>
+      @if (stage() === 'idle') {
+        <div class="preview-idle" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <path d="M14 2v6h6"></path>
+            <path d="M12 18v-6"></path>
+            <path d="m9 15 3-3 3 3"></path>
+          </svg>
+          <p class="preview-idle-title">Drop your document here</p>
+          <p class="preview-idle-hint text-muted">or click to browse files — max 25 MB</p>
+          <div class="preview-idle-tags">
+            <span class="tag tag-outline">PDF</span>
+            <span class="tag tag-outline">DOCX</span>
+            <span class="tag tag-outline">XLSX</span>
+            <span class="tag tag-outline">PPTX</span>
+            <span class="tag tag-outline">CSV</span>
+            <span class="tag tag-outline">DOC</span>
           </div>
         </div>
-      </div>
+      }
+
+      @if (stage() === 'converting') {
+        <div class="preview-converting" aria-hidden="true">
+          <div class="preview-converting-header">
+            <p class="preview-converting-name">{{ demoFileName }}</p>
+            <p class="preview-converting-label">Converting…</p>
+          </div>
+          <div class="preview-progress-track">
+            <div class="preview-progress-fill" [style.width]="progressPercent()"></div>
+          </div>
+          <p class="preview-converting-status">{{ statusText() }}</p>
+        </div>
+      }
+
+      @if (stage() === 'done') {
+        <div>
+          <div class="preview-toolbar">
+            <p class="preview-filename">
+              {{ demoFileName }} <span class="preview-arrow">→ report.md</span>
+            </p>
+            <div class="preview-tabs" aria-hidden="true">
+              <button type="button" class="preview-tab is-active" tabindex="-1">Split</button>
+              <button type="button" class="preview-tab" tabindex="-1">Markdown</button>
+              <button type="button" class="preview-tab" tabindex="-1">Preview</button>
+            </div>
+            <div class="preview-tools" aria-hidden="true">
+              <button type="button" class="btn btn-ghost" tabindex="-1">Copy</button>
+              <button type="button" class="btn btn-ghost" tabindex="-1">Download .md</button>
+              <button type="button" class="btn btn-ghost" tabindex="-1">Reset</button>
+            </div>
+          </div>
+          <div class="preview-grid">
+            <div class="preview-pane">
+              <div class="pane-label">Markdown</div>
+              <pre class="pane-md"
+                >@for (line of visibleLines(); track $index) {<div class="md-line md-{{ line.kind }}">{{
+                  line.text
+                }}</div>}<span class="md-cursor"></span></pre>
+            </div>
+            <div class="preview-pane">
+              <div class="pane-label">Preview</div>
+              <div class="pane-preview" [style.opacity]="previewOpacity()">
+                <h2>Annual Financial Report</h2>
+                <h3>Revenue</h3>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Month</th>
+                      <th style="text-align: right">Revenue</th>
+                      <th style="text-align: right">Growth</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>January</td>
+                      <td style="text-align: right">$120,000</td>
+                      <td style="text-align: right">8.2%</td>
+                    </tr>
+                    <tr>
+                      <td>February</td>
+                      <td style="text-align: right">$138,000</td>
+                      <td style="text-align: right">15.0%</td>
+                    </tr>
+                    <tr>
+                      <td>March</td>
+                      <td style="text-align: right">$151,000</td>
+                      <td style="text-align: right">9.4%</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h3>Summary</h3>
+                <p>
+                  Revenue increased consistently throughout the first quarter, led by enterprise renewals and a full
+                  quarter of the new pricing tiers.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   </section>
 
@@ -141,7 +195,7 @@ enterprise renewals and the new pricing tiers.</pre>
   <hr class="hr" />
 
   <section id="formats" class="formats">
-    <h2>One interface. Every format it actually reads.</h2>
+    <h2>One interface. Almost any document.</h2>
     <div class="formats-grid">
       @for (format of formats; track format.format) {
         <div class="format-cell">
@@ -167,7 +221,7 @@ enterprise renewals and the new pricing tiers.</pre>
         <p class="eyebrow">Original document</p>
         <div class="transform-list">
           <div class="transform-item">PDF — scanned report, two columns</div>
-          <div class="transform-item">Spreadsheet — merged cells, many sheets</div>
+          <div class="transform-item">Spreadsheet — merged cells, 14 sheets</div>
           <div class="transform-item">Presentation — text inside shapes</div>
           <div class="transform-item">Word document — nested styles</div>
         </div>
@@ -198,13 +252,13 @@ Structured content...
   <section id="extension" class="extension">
     <div class="extension-grid">
       <div>
-        <span class="tag chip-accent">Chrome Extension — Coming soon</span>
+        <span class="tag tag-accent">Chrome Extension — Coming soon</span>
         <h2>Convert documents wherever you work.</h2>
         <p class="text-muted">
           AnyDoc LLM is coming to your browser. Convert documents directly from your everyday AI workflows.
         </p>
       </div>
-      <div class="extension-mock">
+      <div class="extension-mock" aria-hidden="true">
         <div class="mock-chrome">
           <span class="mock-dot"></span>
           <span class="mock-dot"></span>
@@ -217,8 +271,8 @@ Structured content...
             <div class="mock-popup-body">
               <p class="mock-file">report.xlsx</p>
               <p class="mock-status">✓ Converted</p>
-              <button type="button" class="btn btn-primary btn-block" disabled>Copy Markdown</button>
-              <button type="button" class="btn btn-secondary btn-block" disabled>Download</button>
+              <button type="button" class="btn btn-primary btn-block" tabindex="-1">Copy Markdown</button>
+              <button type="button" class="btn btn-ghost btn-block" tabindex="-1">Download</button>
             </div>
           </div>
         </div>
@@ -242,7 +296,7 @@ Structured content...
       </div>
       <div>
         <h3>Open source</h3>
-        <p class="text-muted">The source code is publicly available.</p>
+        <p class="text-muted">The source code is publicly available on GitHub.</p>
       </div>
       <div>
         <h3>Run it yourself</h3>
@@ -251,7 +305,8 @@ Structured content...
     </div>
     <div class="opensource-actions">
       <a href="#opensource" class="btn btn-primary">GitHub</a>
-      <a href="#opensource" class="btn btn-secondary">Star repository</a>
+      <a href="#opensource" class="btn btn-ghost">Star repository</a>
+      <a href="#opensource" class="btn btn-ghost">Documentation</a>
     </div>
   </section>
 
@@ -276,6 +331,7 @@ Structured content...
       <div class="footer-links">
         <a href="#opensource">GitHub</a>
         <a href="#extension">Chrome Extension</a>
+        <a href="#opensource">Documentation</a>
         <a href="#formats">Supported Formats</a>
       </div>
     </div>
