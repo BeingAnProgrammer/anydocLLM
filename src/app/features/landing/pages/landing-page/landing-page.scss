@@ -43,7 +43,8 @@ h2 {
 }
 .transform-box,
 .extension-mock,
-.mock-popup {
+.mock-popup,
+.hero-start {
   border: 2px solid var(--color-divider);
 }
 .how-grid,
@@ -69,7 +70,8 @@ h2 {
 .format-name,
 .transform-badge,
 .mock-popup-header,
-.cta-strong {
+.cta-strong,
+.hero-start-title {
   font-family: var(--font-heading);
   font-weight: 800;
 }
@@ -206,6 +208,40 @@ h2 {
   flex-wrap: wrap;
   margin-top: 24px;
 }
+.hero-grid {
+  display: grid;
+  gap: 40px;
+  /* Top-align, not center or stretch — the card sizes to its own content
+     and starts level with the heading, instead of floating in the middle
+     of the (much taller) text column. */
+  align-items: start;
+}
+@media (min-width: 860px) {
+  .hero-grid {
+    /* The text column stays dominant; the card holds a narrower, fixed-ish
+       width instead of matching it — an even split reads oddly for a
+       dense paragraph block next to a compact CTA card. */
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+  }
+}
+.hero-start {
+  padding: 32px;
+}
+.hero-start-title {
+  font-size: 24px;
+  line-height: 1.2;
+  margin-top: 10px;
+}
+.hero-start-btn {
+  margin-top: 24px;
+  font-size: 16px;
+  padding: 16px 22px;
+}
+.hero-start-note {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 22px;
+}
 
 /* — feature row / how it works — */
 /* All six are <section>s (padding-inline already comes from the shared
@@ -332,7 +368,8 @@ h2 {
   padding: 24px;
 }
 .transform-box-result,
-.extension-mock {
+.extension-mock,
+.hero-start {
   background: var(--color-neutral-100);
 }
 .transform-list {
