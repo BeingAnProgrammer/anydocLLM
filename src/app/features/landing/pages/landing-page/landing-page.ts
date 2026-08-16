@@ -16,6 +16,15 @@ export class LandingPageComponent implements OnInit {
 
   protected readonly formats = SUPPORTED_FORMATS;
 
+  protected readonly llmLogos = [
+    { name: 'ChatGPT', icon: 'chatgpt' },
+    { name: 'Claude', icon: 'claude' },
+    { name: 'Gemini', icon: 'gemini' },
+    { name: 'Perplexity', icon: 'perplexity' },
+    { name: 'DeepSeek', icon: 'deepseek' },
+    { name: 'Grok', icon: 'grok' },
+  ];
+
   ngOnInit(): void {
     this.seoService.update({
       path: '',

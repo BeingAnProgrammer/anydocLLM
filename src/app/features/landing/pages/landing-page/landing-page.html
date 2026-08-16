@@ -119,6 +119,24 @@
 
   <hr class="hr" />
 
+  <section id="llms" class="llms">
+    <span class="eyebrow eyebrow-accent">Output, optimized</span>
+    <h2>Markdown that's ready for any LLM.</h2>
+    <p class="llms-copy text-muted">
+      Clean, structured Markdown that ChatGPT, Claude, Gemini, Perplexity, DeepSeek, and Grok can all parse reliably.
+    </p>
+    <div class="llms-row">
+      @for (llm of llmLogos; track llm.name) {
+        <div class="llm-item">
+          <img src="/icons/llms/{{ llm.icon }}.png" alt="{{ llm.name }}" width="24" height="24" loading="lazy" />
+          <span>{{ llm.name }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <hr class="hr" />
+
   <section class="transform">
     <h2>Documents were built for people. Markdown works better for machines.</h2>
     <div class="transform-grid">

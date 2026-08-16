@@ -262,6 +262,7 @@ h2 {
 /* .feature-row (above) takes 56px; these six take 64px instead. */
 .how,
 .formats,
+.llms,
 .transform,
 .extension,
 .opensource,
@@ -315,6 +316,7 @@ h2 {
 /* Also covers .opensource h2 and .pipelines h2 below — the three headings
    that need only this one optical-alignment correction and nothing else. */
 .formats h2,
+.llms h2,
 .opensource h2,
 .pipelines h2 {
   margin-left: -0.04em;
@@ -354,6 +356,46 @@ h2 {
 .format-note {
   line-height: 20px;
   margin-top: 4px;
+}
+
+/* — llms — */
+.llms-copy {
+  margin-top: 14px;
+  max-width: 62ch;
+  font-size: 15px;
+  line-height: 26px;
+}
+.llms-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+.llm-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border: 2px solid var(--color-divider);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 15px;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+
+  img {
+    width: 22px;
+    height: 22px;
+    opacity: 0.75;
+  }
+
+  &:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text);
+
+    img {
+      opacity: 1;
+    }
+  }
 }
 
 /* — transform — */
