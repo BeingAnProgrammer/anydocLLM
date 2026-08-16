@@ -327,13 +327,16 @@ h2 {
 .formats-grid {
   grid-template-columns: repeat(auto-fit, minmax(max(25%, 150px), 1fr));
   margin-top: 40px;
+  /* Grid owns the top/left perimeter; each cell owns its own right/bottom
+     edge. Every line — interior or perimeter — is drawn by exactly one box,
+     so hover backgrounds never cover a neighbour's edge and shared interior
+     lines never get two translucent dividers stacked on top of each other. */
   border-top: 1px solid var(--color-divider);
   border-left: 1px solid var(--color-divider);
 }
 .format-cell {
-  box-shadow:
-    1px 0 0 0 var(--color-divider),
-    0 1px 0 0 var(--color-divider);
+  border-right: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
   padding: 22px 20px;
   display: flex;
   flex-direction: column;
