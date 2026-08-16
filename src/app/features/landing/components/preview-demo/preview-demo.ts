@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, signal, computed, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  OnInit,
+  AfterViewInit,
+  viewChild,
+  signal,
+  computed,
+  inject,
+} from '@angular/core';
 
 type PreviewStage = 'idle' | 'converting' | 'done';
 type PreviewView = 'split' | 'markdown' | 'preview';
@@ -56,8 +67,10 @@ const COPIED_LABEL_MS = 1600;
   styleUrl: './preview-demo.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PreviewDemoComponent implements OnInit {
+export class PreviewDemoComponent implements OnInit, AfterViewInit {
   private readonly destroyRef = inject(DestroyRef);
+  private readonly root = viewChild.required<ElementRef<HTMLElement>>('root');
+  private visibilityObserver: IntersectionObserver | undefined;
 
   protected readonly demoFileName = DEMO_FILE_NAME;
   protected readonly mdLines = MD_LINES;
@@ -97,17 +110,35 @@ export class PreviewDemoComponent implements OnInit {
   private finishTimer: ReturnType<typeof setTimeout> | undefined;
 
   ngOnInit(): void {
-    this.destroyRef.onDestroy(() => this.clearTimers());
+    this.destroyRef.onDestroy(() => {
+      this.clearTimers();
+      this.visibilityObserver?.disconnect();
+    });
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       this.stage.set('done');
       this.typedCount.set(this.mdLines.length);
       this.progress.set(100);
-      return;
     }
+  }
 
-    this.startTimer = setTimeout(() => this.startConverting(), START_DELAY_MS);
+  ngAfterViewInit(): void {
+    // Reduced-motion already jumped straight to the finished state above.
+    if (this.stage() !== 'idle') return;
+
+    // Start only once the demo actually scrolls into view — otherwise a
+    // visitor who lingers on the hero never sees the conversion animation,
+    // it's already finished by the time they scroll down to it.
+    this.visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        this.visibilityObserver?.disconnect();
+        this.startTimer = setTimeout(() => this.startConverting(), START_DELAY_MS);
+      },
+      { threshold: 0.3 },
+    );
+    this.visibilityObserver.observe(this.root().nativeElement);
   }
 
   private startConverting(): void {
