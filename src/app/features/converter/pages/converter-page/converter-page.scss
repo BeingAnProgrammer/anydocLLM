@@ -1,10 +1,14 @@
 :host {
   display: block;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .converter-shell {
-  min-height: 100vh;
+  /* A hard height (not min-height) so the flex column below is actually
+     bounded — otherwise .panes' flex:1/min-height:0/overflow:auto never
+     gets a chance to constrain anything, and the whole document scrolls
+     instead of the individual Markdown/Preview panes. */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background: var(--color-bg);
@@ -26,9 +30,14 @@
   z-index: 20;
   display: flex;
   align-items: center;
-  gap: 14px;
-  height: 56px;
-  padding: 0 clamp(16px, 3vw, 32px);
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  /* min-height, not height — on narrow screens the brand/tag/actions wrap
+     to a second row instead of overflowing a fixed-height box (which,
+     inside the now-fixed-height .converter-shell below, would clip and
+     overlap the file bar rather than just growing the page). */
+  min-height: 56px;
+  padding: 10px clamp(16px, 3vw, 32px);
 }
 
 .brand {
@@ -39,6 +48,8 @@
   font-weight: 800;
   font-size: 15px;
   letter-spacing: -0.01em;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* .brand-mark is defined globally in styles.scss — identical here and on

@@ -1,9 +1,11 @@
 :host {
   display: flex;
   flex: 1;
+  min-height: 0;
   align-items: center;
   justify-content: center;
   padding: clamp(32px, 6vw, 80px) clamp(16px, 4vw, 32px);
+  overflow: auto;
 }
 
 .upload-state {
